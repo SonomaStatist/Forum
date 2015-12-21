@@ -1,0 +1,12 @@
+<% include ../partials/header.ejs %>
+
+<h3>Don't see a group you like? Why not <a href="/submit/group">create your own!</a> </h3>
+<div>
+    <% if(rs.length > 0) { %>
+        <% for (var i=0; rs.length > i; i++) { %>
+            <p><a href="/groups/<%= rs[i].groupname %>"><%= rs[i].groupname %></a></p>
+        <% } %>
+    <% } %>
+</div>
+
+<% include ../partials/footer.ejs %>

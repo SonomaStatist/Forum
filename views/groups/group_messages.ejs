@@ -1,0 +1,45 @@
+<% include ../partials/header.ejs %>
+
+<header>
+    <table>
+        <tr>
+            <td><a href="/groups/<%= groupname %>/join">join group</a></td>
+            <td><a href="/groups/<%= groupname %>">view posts</a></td>
+            <td><form action="/groups/<%= groupname %>/messages/" method="get">
+                    <label for="tag">view group messages by tag: </label>
+                    <input type="text" id="tag" name="tag" class="form-control" />
+                    <input type="submit" />
+            </form></td>
+        </tr>
+    </table>
+</header>
+<div>
+    <form action="/submit/message" method="post">
+        <label for="message">leave a message for the group:</label>
+        <input type="text" name="message_body" id="message_body" class="form-control" /><br />
+        <label for="tag">add a message tag:</label>
+        <input type="text" name="tag" id="tag" class="form-control" /><br />
+        <input type="hidden" name="user_id" id="user_id" value="<%= user_id %>" />
+        <input type="hidden" name="groupname" id="groupname" value="<%= groupname %>" />
+        <input type="submit" />
+    </form>
+    <% if(rs.length > 0) { %>
+        <% for (var i=0; rs.length > i; i++) { %>
+        <article>
+            <header>
+                <table border="0">
+                    <tr>
+                        <td>message #<%= i %></td>
+                        <td>from <a href="/user/<%= rs[i].username %>"><%= rs[i].username %></a></td>
+                        <td>at <%= rs[i].date_messaged %></td>
+                        <td>tags: <%= rs[i].tags %></td>
+                    </tr>
+                </table>
+            </header>
+            <p><%= rs[i].message_body %></p>
+        </article>
+        <% } %>
+    <% } %>
+</div>
+
+<% include ../partials/footer.ejs %>

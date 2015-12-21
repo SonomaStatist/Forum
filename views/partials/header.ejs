@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forum!</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<h2><a href="/">Forum!</a></h2>
+<% if(typeof username !== "undefined") { %>
+<nav>
+    <table>
+        <tr>
+            <td> Welcome, <a href="/user/<%= username %>"><%= username %></a>!</td>
+            <td><a href="/submit/post">submit a post</a></td>
+            <td><a href="/groups/all">view all groups</a></td>
+            <td><a href="/logout">logout</a></td>
+        </tr>
+   </table>
+</nav>
+<% } else { %>
+<nav>
+    <p>
+        <a href="#" onclick="$('div#new_user').toggle()">create new account</a>
+        or
+        <a href="#" onclick="$('div#login_user').toggle()">login</a>
+    </p>
+</nav>
+<% } %>
+<section>
+        <% include ../authenticate/new_user.ejs %>
+        <% include ../authenticate/login.ejs %>
+</section>

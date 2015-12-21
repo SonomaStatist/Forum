@@ -1,0 +1,84 @@
+<% include ../partials/header.ejs %>
+<article>
+    <header><h3><a href="<%= rs.post.link %>"><%= rs.post.title %></a></h3></header>
+    <p><%= rs.post.post_body %></p>
+    <footer>
+        <table>
+            <tr>
+                <td>submitted by <a href="/user/<%= rs.post.username%>"><%= rs.post.username %></a></td>
+                <td>on <%= rs.post.date_posted %></td>
+                <td><a href="/post/<%= rs.post.post_id %>">see all comments</a></td>
+                <% if (typeof username !== "undefined") { %>
+                    <% if (username == rs.post.username) { %>
+                        <td><a href="#" onclick="$('div#tag_post').toggle()">tag post</a></td>
+                    <% } %>
+                    <td><a href="#" onclick="$('div#post_reply').toggle()" >reply</a></td>
+                <% } %>
+            </tr>
+        </table>
+        <% if (typeof username !== "undefined") { %>
+        <div id="post_reply" style="display: none">
+            <form id="post_reply_form" action="/submit/postreply/" class="col-md-4" method="post">
+                <label for="comment_body">Post Reply</label>
+                <textarea name="comment_body" id="comment_body" form="post_reply_form" class="form-control"></textarea>
+
+                <br />
+
+                <input type="hidden" name="post_id" id="post_id" value="<%= rs.post.post_id %>" />
+                <input type="submit" /> <button type="button" onclick="$('div#post_reply').toggle()">Cancel</button>
+            </form>
+        </div>
+        <% if (username == rs.post.username) { %>
+        <div id="tag_post" style="display: none">
+            <form id="post_reply_form" action="/submit/posttags/" class="col-md-4" method="post">
+                <input type="hidden" name="post_id" id="post_id" value="<%= rs.post.post_id %>" />
+                <label for="tags">Tags</label>
+                <input type="text" name="tags" id="tags"/>
+                <p>note: use spaces to separate multiple tags</p>
+                <input type="submit" /> <button type="button" onclick="$('div#tag_post').toggle()">Cancel</button>
+            </form>
+        </div>
+        <% } %>
+        <% } %>
+    </footer>
+</article>
+<div>
+    <% if(rs.comments.length > 0) { %>
+    <% for (var i=0; rs.comments.length > i; i++) { %>
+        <% var c_i = rs.comments[i]; %>
+        <article style="padding-left: <%= rs.comments[i].depth %>cm;">
+            <header>
+                <table border="0">
+                    <tr>
+                        <td><a href="/user/<%= c_i.user_id %>"><%= c_i.username %></a></td>
+                        <td>on <%= rs.comments[i].date_commented %></td>
+                        <td><a href="/post/<%= rs.post.post_id %>/comment/<%= c_i.comment_id%>">context</a></td>
+                    </tr>
+                </table>
+            </header>
+            <p><%= c_i.comment_body %></p>
+            <% if (typeof username !== "undefined") { %>
+            <footer>
+                <a href="#" onclick="$('div#comment_reply_<%= c_i.comment_id %>').toggle()">reply</a>
+                <div id="comment_reply_<%= c_i.comment_id %>" style="display: none">
+                    <form id="comment_reply_form_<%= c_i.comment_id %>" action="/submit/commentreply/" class="col-md-4" method="post">
+                        <label for="comment_body">Comment Reply</label>
+                        <textarea name="comment_body" id="comment_body" class="form-control"></textarea>
+
+                        <br />
+
+                        <input type="hidden" name="post_id" id="post_id" value="<%= rs.post.post_id %>" />
+                        <input type="hidden" name="parent_id" id="parent_id" value="<%= c_i.comment_id %>" />
+                        <input type="submit" /> <button type="button" onclick="$('div#comment_reply_<%= c_i.comment_id %>').toggle()">Cancel</button>
+                    </form>
+                </div>
+            </footer>
+            <% } %>
+        </article>
+    <% } %>
+    <% } else { %>
+    No comments yet
+    <% } %>
+</div>
+
+<% include ../partials/footer.ejs %>

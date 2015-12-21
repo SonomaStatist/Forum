@@ -1,0 +1,17 @@
+<div id="login_user" style="display:none">
+    <h2>existing user:</h2>
+    <form id="login_form" action="/login/user" class="col-md-4" method="post">
+        <label for="username">user</label>
+        <input type="text" name="username" id="username" class="form-control"/>
+
+        <br/>
+
+        <label for="password">password</label>
+        <input type="password" name="password" id="password" class="form-control"/>
+
+        <br/>
+
+        <button id="login_btn" class="btn btn-primary">login</button>
+        <button type="button" onclick="$('div#login_user').hide()">cancel</button>
+    </form>
+</div>

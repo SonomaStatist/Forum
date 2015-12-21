@@ -1,0 +1,35 @@
+<% include ../partials/header.ejs %>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            method: "GET",
+            url: "/groups/<%= groupname %>/curators"
+        }).done(function (curators) {
+            var htmlString = "<option>select curator</option>";
+            console.log(curators);
+            for (var i = 0; i < curators.length; i++) {
+                htmlString += '<option value="' +
+                        curators[i].username + '">' +
+                        curators[i].username + ', tags: ' + curators[i].tags +
+                        '</option>';
+            }
+            $('select#curator').html(htmlString);
+        });
+    });
+</script>
+<header>
+    <table>
+        <tr>
+            <td><a href="/groups/<%= groupname %>/join">join group</a></td>
+            <td><a href="/groups/<%= groupname %>/messages">view messages</a></td>
+            <td><form action="/groups/<%= groupname %>/curator" method="get">
+                <label for="curator">view group posts by curator: </label>
+                <select id="curator" name="curator" class="form-control" onchange="this.form.submit()"></select>
+            </form></td>
+        </tr>
+    </table>
+</header>
+
+<% include ../posts/bare_post_listing.ejs %>
+<% include ../partials/footer.ejs %>

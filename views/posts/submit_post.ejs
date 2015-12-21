@@ -1,0 +1,32 @@
+<% include ../partials/bare_header.ejs %>
+
+<% if(typeof msg !== "undefined") { %>
+<%= msg %>
+<% } %>
+
+<h2>Submitting post as <a href="/user/<%= username %>"><%= username %></a></h2>
+<form id="post_form" action="/submit/post/confirm" class="col-md-4" method="post">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control" />
+
+    <br />
+
+    <label for="link">Link</label>
+    <input type="text" name="link" id="link" class="form-control" />
+
+    <br />
+    <label for="tags">Tags</label>
+    <input type="text" name="tags" id="tags" class="form-control" />
+    <p>note: separate multiple tags with spaces</p>
+
+    <br />
+
+    <label for="content">Post Body</label>
+    <textarea name="content" id="content" form="post_form" class="form-control"></textarea>
+
+    <br />
+
+    <input type="submit" />
+</form>
+
+<% include ../partials/footer.ejs %>

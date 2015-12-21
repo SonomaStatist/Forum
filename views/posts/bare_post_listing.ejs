@@ -1,0 +1,17 @@
+<div>
+    <% if(rs.length > 0) { %>
+    <table border="0">
+        <tr><th>Rank</th><th>Post Title</th><th>Posted By</th><th>Post Date</th><th>External Link</th><th>Tags</th></tr>
+        <% for (var i=0; rs.length > i; i++) { %>
+        <tr>
+            <td><%= i %></td>
+            <td><a href="/post/<%= rs[i].post_id %>"><%= rs[i].title %></a></td>
+            <td><a href="/user/<%= rs[i].username %>"><%= rs[i].username %></a></td>
+            <td><%= rs[i].date_posted %></td>
+            <td><a href="<%= rs[i].link %>">Link</a></td>
+            <td><%= rs[i].post_tags %></td>
+        </tr>
+        <% } %>
+    </table>
+    <% } %>
+</div>

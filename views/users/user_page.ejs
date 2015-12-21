@@ -1,0 +1,11 @@
+<% include ../partials/header.ejs %>
+
+<header>
+    <% if (typeof username !== "undefined" && username !== user.username ) { %>
+        <a href="/user/<%= user.username %>/follow">follow <%= user.username %></a>
+    <% } %>
+</header>
+
+<% include ../posts/bare_post_listing.ejs %>
+
+<% include ../partials/footer.ejs %>

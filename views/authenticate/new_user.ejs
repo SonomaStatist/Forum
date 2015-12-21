@@ -1,0 +1,22 @@
+<div id="new_user" style="display:none">
+    <h2>New User:</h2>
+    <form id="login_form" action="/login/user/new" class="col-md-4" method="post">
+        <label for="username">User</label>
+        <input type="text" name="username" id="username" class="form-control" />
+
+        <br />
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" />
+
+        <br />
+
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" name="confirm_password" id="confirm_password" class="form-control" />
+
+        <br />
+
+        <button id="login_btn" class="btn btn-primary">Login</button>
+        <button type="button" onclick="$('div#new_user').hide()" >Cancel</button>
+    </form>
+</div>
